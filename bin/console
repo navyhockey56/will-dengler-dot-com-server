@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'pry'
+
+require_relative '../config/environment'
+require_relative '../lib/handlers/message_handler'
+require_relative '../lib/version.rb'
+
+def message_handler
+  @message_handler ||= WillDenglerServer::MessageHandler.new
+end
+
+
+puts "You are running Will Dengler Server v#{WillDenglerServer::VERSION}"
+Pry.start

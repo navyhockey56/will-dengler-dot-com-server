@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+#####################
+# This script is responsible for starting the server.
+#
+# Running this script directly will cause the server to run in the foreground.
+# If you want to run the server in the background, use either the server_control script
+# or run the systemd script.
+
+require 'sinatra'
+
+require_relative '../config/environment'
+require_relative '../lib/logging'
+require_relative '../lib/version'
+
+WillDenglerServer.log.info "Starting the Will Dengler Server v#{WillDenglerServer::VERSION}"
+require_relative '../lib/server'
+
+begin
+  run Sinatra::Application.run!
+rescue Interrupt
+  # No-op - user Ctr+C'd out
+rescue StandardError => ex
+  unless ex.message == "undefined method `run' for main:Object"
+    WillDenglerServer.log.error "An error occurred: #{ex.message}"
+    WillDenglerServer.log.error ex.backtrace.join("\n")
+  end
+ensure
+  # Make sure the server gets shut down properly
+  WillDenglerServer.log.info 'Starting shut down of Side Texter Server...'
+
+  WillDenglerServer.log.info 'Shutting down postgresql connection...'
+  SimplePG::PostgresqlConnector.shut_down
+  WillDenglerServer.log.info 'Shut down postgresql connection.'
+
+  WillDenglerServer.log.info 'Shut down of Side Texter Server complete. Goodbye.'
+
+  exit!
+end
