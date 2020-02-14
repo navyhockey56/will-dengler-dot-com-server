@@ -1,5 +1,5 @@
 # Will Dengler Server
-The UMA Server is reponsible for hosting the RESTful API for the project.
+The Server is reponsible for hosting the RESTful API for the project.
 
 ## Environment Setup
 The Server needs to connect with Postgresql, as such, the following variables are required:
@@ -23,7 +23,7 @@ bundle exec bin/server
 #### Will Dengler Server as a Service
 There is a service script `willdengler_server` in the `init.d\` directory. This file should be copied over to the `/etc/init.d/` directory and loaded with default settings:
 ```bash
-cp init.d/uma_server /etc/init.d/
+cp init.d/willdengler_server /etc/init.d/
 update-rc.d willdengler_server defaults
 ```
 You should then be able to start/stop/restart/etc this project as a service:
@@ -53,4 +53,4 @@ cp nginx/willdengler_server /etc/nginx/sites-available/
 ln -s /etc/nginx/sites-available/willdengler_server /etc/nginx/sites-enabled/willdengler_server
 service nginx restart
 ```
-The UMA server should now be accessible over port `4567` via your droplet's IP.
+The server should now be accessible over port `4567` via your droplet's IP.
