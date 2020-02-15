@@ -9,10 +9,15 @@
 # or run the systemd script.
 
 require 'sinatra'
+require_relative '../lib/sinatra_ssl'
 
 require_relative '../config/environment'
 require_relative '../lib/logging'
 require_relative '../lib/version'
+
+set :ssl_certificate, ENV['CERT']
+set :ssl_key, ENV['CERT_KEY']
+#set :port, 9494
 
 WillDenglerServer.log.info "Starting the Will Dengler Server v#{WillDenglerServer::VERSION}"
 require_relative '../lib/server'

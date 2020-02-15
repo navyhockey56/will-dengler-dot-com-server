@@ -2,7 +2,7 @@
 
 require 'base64'
 require 'sinatra/base'
-require 'rack/ssl'
+# require 'rack/ssl'
 
 require_relative '../exceptions'
 require_relative '../logging'
@@ -12,7 +12,7 @@ require_relative '../handlers/message_handler'
 # helper methods.
 module WillDenglerServer
   class Endpoints < Sinatra::Base
-    use Rack::SSL
+    # use Rack::SSL
 
     # Defines the ADMIN role
     ROLE_ADMIN = 'ADMIN'
@@ -36,6 +36,7 @@ module WillDenglerServer
       # NOTE: You've temporarily added header "PURCHASE_PASSWORD". Remove this once you have billing working.
       response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, Authorization, PURCHASE_PASSWORD"
       response.headers["Access-Control-Allow-Origin"] = "*"
+      response.headers["Strict-Transport-Security"] = "max-age=31536000;"
       200
     end
 
