@@ -2,7 +2,8 @@
 
 require 'base64'
 require 'sinatra/base'
-# require 'rack/ssl'
+require 'rack/ssl'
+require 'webrick/https'
 
 require_relative '../exceptions'
 require_relative '../logging'
@@ -12,7 +13,7 @@ require_relative '../handlers/message_handler'
 # helper methods.
 module WillDenglerServer
   class Endpoints < Sinatra::Base
-    # use Rack::SSL
+    use Rack::SSL
 
     # Defines the ADMIN role
     ROLE_ADMIN = 'ADMIN'

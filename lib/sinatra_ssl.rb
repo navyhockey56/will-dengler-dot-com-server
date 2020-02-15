@@ -1,19 +1,23 @@
+require 'webrick'
 require 'webrick/ssl'
+require 'webrick/https'
+require 'openssl'
 
 module Sinatra
   class Application
     def self.run!
-      require 'pry'; binding.pry
+      #require 'pry'; binding.pry
       certificate_content = File.open(ssl_certificate).read
       key_content = File.open(ssl_key).read
 
       server_options = {
-        :Host => bind,
+	:Host => "willdengler.com",
         :Port => port,
         :SSLEnable => true,
         :SSLCertificate => OpenSSL::X509::Certificate.new(certificate_content),
-        # 123456 is the Private Key Password
-        :SSLPrivateKey => OpenSSL::PKey::RSA.new(key_content,"123456")
+        :SSLPrivateKey => OpenSSL::PKey::RSA.new(key_content),
+	:SSLCertName => [['CN', WEBrick::Utils::getservername]],
+	:SSLVerifyClient    => OpenSSL::SSL::VERIFY_NONE
       }
 
       Rack::Handler::WEBrick.run self, server_options do |server|

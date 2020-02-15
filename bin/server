@@ -10,6 +10,7 @@
 
 require 'sinatra'
 require_relative '../lib/sinatra_ssl'
+#require 'webrick/https'
 
 require_relative '../config/environment'
 require_relative '../lib/logging'

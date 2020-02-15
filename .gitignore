@@ -1,3 +1,5 @@
 .env*
 *.crt
 *.pem
+logs/
+tmp/
