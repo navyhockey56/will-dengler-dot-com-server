@@ -6,12 +6,11 @@ require 'openssl'
 module Sinatra
   class Application
     def self.run!
-      #require 'pry'; binding.pry
       certificate_content = File.open(ssl_certificate).read
       key_content = File.open(ssl_key).read
 
       server_options = {
-	:Host => "willdengler.com",
+	:Host => ENV['HOST'] || bind,
         :Port => port,
         :SSLEnable => true,
         :SSLCertificate => OpenSSL::X509::Certificate.new(certificate_content),
