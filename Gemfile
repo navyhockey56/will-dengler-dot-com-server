@@ -7,7 +7,6 @@ end
 source 'https://rubygems.org' do
   gem 'dotenv', '~> 2.0'
   gem 'logger', '~> 1.0'
-  gem 'rack-ssl', '~> 1.0'
   gem 'sinatra', '~> 2.0'
   gem 'unicorn', '~> 5.0'
 
