@@ -34,6 +34,7 @@ module WillDenglerServer
       # NOTE: You've temporarily added header "PURCHASE_PASSWORD". Remove this once you have billing working.
       response.headers["Access-Control-Allow-Headers"] = "X-Requested-With, X-HTTP-Method-Override, Content-Type, Cache-Control, Accept, Authorization, PURCHASE_PASSWORD"
       response.headers["Access-Control-Allow-Origin"] = "*"
+      response.headers["Strict-Transport-Security"] = "max-age=31536000;"
       200
     end
 
@@ -168,6 +169,11 @@ module WillDenglerServer
               status: 409
             }
           ]
+        },
+        {
+          class: SimplePG::Exceptions::InvalidColumnValue,
+          message: ex.message,
+          status: 406
         },
         {
           class: KeyError,
