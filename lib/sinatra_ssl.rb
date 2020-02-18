@@ -10,13 +10,13 @@ module Sinatra
       key_content = File.open(ssl_key).read
 
       server_options = {
-	:Host => ENV['HOST'] || bind,
+        :Host => ENV['HOST'] || bind,
         :Port => port,
         :SSLEnable => true,
         :SSLCertificate => OpenSSL::X509::Certificate.new(certificate_content),
         :SSLPrivateKey => OpenSSL::PKey::RSA.new(key_content),
-	:SSLCertName => [['CN', WEBrick::Utils::getservername]],
-	:SSLVerifyClient    => OpenSSL::SSL::VERIFY_NONE
+        :SSLCertName => [['CN', WEBrick::Utils::getservername]],
+        :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE
       }
 
       Rack::Handler::WEBrick.run self, server_options do |server|

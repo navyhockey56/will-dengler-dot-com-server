@@ -171,6 +171,11 @@ module WillDenglerServer
           ]
         },
         {
+          class: SimplePG::Exceptions::InvalidColumnValue,
+          message: ex.message,
+          status: 406
+        },
+        {
           class: KeyError,
           message: ex.message,
           status: 422
